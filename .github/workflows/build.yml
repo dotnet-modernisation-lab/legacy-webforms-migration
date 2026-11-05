@@ -1,0 +1,36 @@
+name: legacy-baseline-build
+
+# Proves the legacy sample builds from a clean checkout exactly as designed:
+# old-style VB.NET projects, .NET Framework 4.8, Visual Studio MSBuild.
+# No test framework: legacy estates generally have none. Behaviour is
+# recorded later by the assessment tool's behaviour probe.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: microsoft/setup-msbuild@v2
+
+      - name: Restore and build (Debug)
+        run: msbuild LegacyWebFormsMigration.sln -restore -p:RestorePackagesConfig=true -p:Configuration=Debug -v:minimal -nologo
+
+      - name: Verify CSLA 2.0.3.0 is the referenced binary
+        shell: pwsh
+        run: |
+          $v = [System.Reflection.AssemblyName]::GetAssemblyName("$PWD\csla\Csla.dll").Version
+          Write-Host "Csla.dll version: $v"
+          if ($v.ToString() -ne '2.0.3.0') { throw "Expected Csla 2.0.3.0 but found $v" }
+
+      - name: Verify .NET Framework 4.8 target
+        shell: pwsh
+        run: |
+          $bad = Get-ChildItem src -Recurse -Include *.vbproj,*.csproj |
+            Where-Object { (Get-Content $_ -Raw) -notmatch '<TargetFrameworkVersion>v4\.8</TargetFrameworkVersion>' }
+          if ($bad) { throw "Not targeting v4.8: $($bad.Name -join ', ')" }

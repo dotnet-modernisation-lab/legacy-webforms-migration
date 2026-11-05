@@ -45,3 +45,14 @@ With `LegacyWebFormsSample` selected as the startup project, browse to `/Pages/L
 - `src/LegacyDataService` - WCF service contract and fixture-backed DAL.
 - `csla` - supplied CSLA 2.0.3.0 assembly set.
 - `docs` - migration notes and assessment context.
+
+## Building
+
+From a clean checkout, using Visual Studio MSBuild (no SDK-style conversion, no test projects):
+
+```text
+msbuild LegacyWebFormsMigration.sln -restore -p:RestorePackagesConfig=true
+```
+
+`RestorePackagesConfig=true` is required: without it MSBuild silently skips the `packages.config` restore (AjaxControlToolkit).
+The `legacy-baseline-build` GitHub Actions workflow runs this on a Windows runner and also checks that `csla/Csla.dll` is 2.0.3.0 and every project targets .NET Framework 4.8.
