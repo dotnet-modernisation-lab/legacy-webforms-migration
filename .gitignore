@@ -1,0 +1,11 @@
+bin/
+obj/
+packages/
+.vs/
+*.user
+*.suo
+*.cache
+*.tmp
+UpgradeLog*.htm
+Visual Studio*/
+current-build-check.txt

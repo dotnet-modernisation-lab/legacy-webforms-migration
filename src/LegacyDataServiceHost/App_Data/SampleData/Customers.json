@@ -1,0 +1,17 @@
+[
+  {
+    "CustomerId": 1042,
+    "CustomerName": "Northwind Field Services",
+    "Status": "Active"
+  },
+  {
+    "CustomerId": 1091,
+    "CustomerName": "Contoso Survey Group",
+    "Status": "Review"
+  },
+  {
+    "CustomerId": 1128,
+    "CustomerName": "Fabrikam Building Products",
+    "Status": "Inactive"
+  }
+]

@@ -1,0 +1,30 @@
+<%@ Master Language="VB" AutoEventWireup="false" CodeBehind="Site.Master.vb" Inherits="LegacyWebFormsSample.LegacyWebFormsSample.SiteMaster" %>
+<!DOCTYPE html>
+<html>
+<head runat="server">
+    <title>Legacy Web Forms Migration Sample</title>
+    <style>
+        body { font-family: Segoe UI, Arial, sans-serif; margin: 24px; }
+        .nav { margin-bottom: 20px; }
+        .nav a { margin-right: 12px; }
+        .panel { border: 1px solid #ddd; padding: 16px; margin-top: 12px; }
+        .ajax__calendar { background: white; border: 1px solid #666; font-family: Segoe UI, Arial, sans-serif; font-size: 0.9em; }
+        .ajax__calendar td { padding: 4px; text-align: center; }
+    </style>
+</head>
+<body>
+    <form runat="server">
+        <div class="nav">
+            <a href="/Pages/Default.aspx">Home</a>
+            <a href="/Pages/Login.aspx">Login</a>
+            <a href="/Pages/DataAccess.aspx?customerId=1042">Data Access</a>
+            <a href="/Pages/Compatibility.aspx">Compatibility</a>
+            <a href="/Pages/Profile.aspx">Profile</a>
+            <a href="/Pages/AjaxToolkit.aspx">AjaxControlToolkit</a>
+        </div>
+        <div>
+            <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        </div>
+    </form>
+</body>
+</html>
